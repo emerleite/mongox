@@ -160,6 +160,7 @@ defmodule Mongo.Connection do
     timeout = opts[:timeout] || 5000
 
     opts = opts
+           |> define_multi_host
            |> define_host
            |> Keyword.put_new(:hostname, "localhost")
            |> Keyword.update!(:hostname, &to_char_list/1)
@@ -237,12 +238,27 @@ defmodule Mongo.Connection do
     end
   end
 
+  defp define_multi_host(opts) do
+    hosts = opts[:hostname]
+    |> String.split(",")
+    |> Enum.map(fn (item) ->
+      item
+      |> String.split(":")
+      |> List.to_tuple
+    end)
+
+    opts = opts
+    |> Keyword.put(:hosts, hosts)
+    |> Keyword.delete(:hostname)
+    |> Keyword.delete(:port)
+  end
+
   defp define_host(opts) do
     case opts[:hosts] do
       [{host, port} | hosts] ->
         opts
         |> Keyword.put_new(:hostname, host)
-        |> Keyword.put_new(:port, port)
+        |> Keyword.put_new(:port, String.to_integer(port))
         |> Keyword.put(:hosts, hosts ++ [{host, port}])
       _ -> opts
     end
@@ -255,7 +271,7 @@ defmodule Mongo.Connection do
         [{next_host, next_port} | _] = hosts
         cond do
           String.to_char_list(next_host) == host and next_port == port -> :not_found
-          true -> {:ok, next_host, next_port}
+          true -> {:ok, next_host, String.to_integer(next_port)}
         end
     end
   end
