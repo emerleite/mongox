@@ -160,6 +160,7 @@ defmodule Mongo.Connection do
     timeout = opts[:timeout] || 5000
 
     opts = opts
+           |> define_host
            |> Keyword.put_new(:hostname, "localhost")
            |> Keyword.update!(:hostname, &to_char_list/1)
            |> Keyword.put_new(:port, 27017)
@@ -201,14 +202,61 @@ defmodule Mongo.Connection do
             {:ok, s}
           {:error, reason} ->
             {:stop, reason, s}
+          {:is_secondary, new_host, new_port} ->
+            :gen_tcp.close(socket)
+            Logger.error "#{host}:#{port} is not a master. Switching to #{new_host}:#{new_port}"
+            opts = opts
+            |> Keyword.put(:hostname, new_host)
+            |> Keyword.put(:port, new_port)
+            {:backoff, s.opts[:backoff], %{s | socket: nil, opts: opts}}
+          {:no_master, _} ->
+            :gen_tcp.close(socket)
+            Logger.error "No master is yet selected"
+            {:backoff, s.opts[:backoff], %{s | socket: nil}}
           {:tcp_error, reason} ->
             Logger.error "Mongo tcp error (#{host}:#{port}): #{format_error(reason)}"
             {:backoff, s.opts[:backoff], s}
         end
-
+      {:error, :econnrefused} ->
+        Logger.error "Mongo connect refused (#{host}:#{port})"
+        case next_db_server(opts, host, port) do
+          {:ok, next_host, next_port} ->
+            opts = opts
+            |> define_host
+            |> Keyword.put(:hostname, next_host)
+            |> Keyword.update!(:hostname, &to_char_list/1)
+            |> Keyword.put(:port, next_port)
+            s = %{s | opts: opts}
+          :not_found ->
+            Logger.error "Mongo connect error (#{host}:#{port}): #{format_error(:econnrefused)}"
+        end
+        {:backoff, s.opts[:backoff], s}
       {:error, reason} ->
         Logger.error "Mongo connect error (#{host}:#{port}): #{format_error(reason)}"
         {:backoff, s.opts[:backoff], s}
+    end
+  end
+
+  defp define_host(opts) do
+    case opts[:hosts] do
+      [{host, port} | hosts] ->
+        opts
+        |> Keyword.put_new(:hostname, host)
+        |> Keyword.put_new(:port, port)
+        |> Keyword.put(:hosts, hosts ++ [{host, port}])
+      _ -> opts
+    end
+  end
+
+  defp next_db_server(opts, host, port) do
+    case opts[:hosts] do
+      nil -> :not_found
+      hosts ->
+        [{next_host, next_port} | _] = hosts
+        cond do
+          String.to_char_list(next_host) == host and next_port == port -> :not_found
+          true -> {:ok, next_host, next_port}
+        end
     end
   end
 
@@ -216,9 +264,17 @@ defmodule Mongo.Connection do
     # wire version
     # https://github.com/mongodb/mongo/blob/master/src/mongo/db/wire_version.h
     case sync_command(-1, [ismaster: 1], s) do
-      {:ok, %{"ok" => 1.0} = reply} ->
+      {:ok, %{"ok" => 1.0, "ismaster" => true} = reply} ->
         s = %{s | wire_version: reply["maxWireVersion"] || 0}
         Auth.run(s)
+      {:ok, %{"ok" => 1.0, "ismaster" => false} = reply} ->
+        primary = reply["primary"]
+        if primary do
+          [host, port] = String.split(primary, ":")
+          {:is_secondary, String.to_char_list(host), String.to_integer(port)}
+        else
+          {:no_master, reply["hosts"]}
+        end
       {:tcp_error, _} = error ->
         error
     end
