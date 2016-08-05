@@ -1,12 +1,15 @@
 Mongodb
 =======
 
-[![Build Status](https://travis-ci.org/ericmj/mongodb.svg?branch=master)](https://travis-ci.org/ericmj/mongodb)
-[![Inline docs](http://inch-ci.org/github/ericmj/mongodb.svg)](http://inch-ci.org/github/ericmj/mongodb)
+[![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=master)](https://travis-ci.org/emerleite/mongox)
+[![Inline docs](http://inch-ci.org/github/emerleite/mongox.svg)](http://inch-ci.org/github/emerleite/mongox)
+
+This is a fork of [https://github.com/emerleite/mongox](https://github.com/emerleite/mongox) with full replica set support. We're current using it in production environment, so we need to evolve it regardless of the original project
 
 ## Features
 
   * Supports MongoDB versions 2.4, 2.6, 3.0, 3.2
+  * Full Replica Set Support
   * Connection pooling
   * Streaming cursors
   * Performant ObjectID generation
