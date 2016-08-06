@@ -3,8 +3,8 @@ defmodule Mongodb.Mixfile do
 
   def project do
     [app: :mongox,
-     version: "0.1.1",
-     elixir: "~> 1.0",
+     version: "0.1.2",
+     elixir: "~> 1.2",
      deps: deps,
      name: "MongoX",
      source_url: "https://github.com/emerleite/mongox",

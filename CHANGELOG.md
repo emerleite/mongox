@@ -1,3 +1,7 @@
+## v0.1.2 (2016-08-06)
+
+  * Full Replica Set Support
+
 ## v0.1.1 (2015-12-17)
 
 * Enhancements
