@@ -2,12 +2,12 @@ defmodule Mongodb.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :mongox,
+    [app: :mongodb,
      version: "0.1.1",
      elixir: "~> 1.0",
      deps: deps,
-     name: "MongoX",
-     source_url: "https://github.com/emerleite/mongox",
+     name: "Mongodb",
+     source_url: "https://github.com/ericmj/mongodb",
      docs: fn ->
        {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
        [source_ref: ref, main: "README", readme: "README.md"]
@@ -31,15 +31,12 @@ defmodule Mongodb.Mixfile do
   end
 
   defp description do
-    "MongoDB driver for Elixir. Full Replica Set Support"
+    "MongoDB driver for Elixir."
   end
 
   defp package do
-    [
-     name: :mongox,
-     maintainers: ["Emerson Macedo Leite"],
+    [maintainers: ["Eric Meadows-Jönsson"],
      licenses: ["Apache 2.0"],
-     links: %{"Github" => "https://github.com/emerleite/mongox"}
-    ]
+     links: %{"Github" => "https://github.com/ericmj/mongodb"}]
   end
 end
