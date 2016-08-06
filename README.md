@@ -1,10 +1,10 @@
 Mongodb
 =======
 
-[![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=replica_set_v011)](https://travis-ci.org/emerleite/mongox)
+[![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=master)](https://travis-ci.org/emerleite/mongox)
 [![Inline docs](http://inch-ci.org/github/emerleite/mongox.svg)](http://inch-ci.org/github/emerleite/mongox)
 
-This is a fork of [https://github.com/emerleite/mongox](https://github.com/emerleite/mongox) with full replica set support. We're current using it in production environment, so we need to evolve it regardless of the original project
+This is a fork of [https://github.com/ericmj/mongodb](https://github.com/ericmj/mongodb) with full replica set support. We're current using it in production environment, so we need to evolve it regardless of the original project.
 
 ## Features
 
@@ -87,7 +87,7 @@ defmodule MongoPool do
 end
 
 # Starts the pool named MongoPool with all hosts you know
-{:ok, _} = MongoPool.start_link(database: "test", hostname: "localhost:27017,localhost:27018,localhost:27019")
+{:ok, _} = MongoPool.start_link(database: "test", hostname: "localhost:27017,localhost:27018")
 ```
 
 ### Examples
