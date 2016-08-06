@@ -239,7 +239,7 @@ defmodule Mongo.Connection do
   end
 
   defp define_multi_host(opts) do
-    hosts = opts[:hostname] || "localhost:27017"
+    hosts = opts[:hostname]
     |> String.split(",")
     |> Enum.map(fn host -> host |> String.trim end)
     |> Enum.map(fn (host) ->
