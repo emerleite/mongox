@@ -1,8 +1,6 @@
 language: elixir
 otp_release:
   - 17.4
-  - 18
-  - 19
 cache:
   - apt
   - directories:
@@ -24,4 +22,4 @@ after_script:
   - MIX_ENV=docs mix inch.report
 notifications:
   recipients:
-    - emerleite@gmail.com
+    - eric.meadows.jonsson@gmail.com

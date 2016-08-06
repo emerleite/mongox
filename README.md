@@ -1,7 +1,7 @@
 Mongodb
 =======
 
-[![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=replica_set_v011)](https://travis-ci.org/emerleite/mongox)
+[![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=master)](https://travis-ci.org/emerleite/mongox)
 [![Inline docs](http://inch-ci.org/github/emerleite/mongox.svg)](http://inch-ci.org/github/emerleite/mongox)
 
 This is a fork of [https://github.com/emerleite/mongox](https://github.com/emerleite/mongox) with full replica set support. We're current using it in production environment, so we need to evolve it regardless of the original project
