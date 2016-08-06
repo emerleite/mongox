@@ -23,7 +23,6 @@ This is a fork of [https://github.com/emerleite/mongox](https://github.com/emerl
   * Bang and non-bang `Mongo` functions
   * Move BSON encoding to client process
     - Make sure requests don't go over the 16mb limit
-  * Replica sets
     - Block in client (and timeout) when waiting for new primary selection
   * New 2.6 write queries and bulk writes
   * Reconnect backoffs with https://github.com/ferd/backoff
@@ -78,6 +77,17 @@ cursor = Mongo.find(MongoPool, "test-collection", %{})
 
 Enum.to_list(cursor)
 |> IO.inspect
+```
+
+### Replica Set
+
+```elixir
+defmodule MongoPool do
+  use Mongo.Pool, name: __MODULE__, adapter: Mongo.Pool.Poolboy
+end
+
+# Starts the pool named MongoPool with all hosts you know
+{:ok, _} = MongoPool.start_link(database: "test", hostname: "localhost:27017,localhost:27018,localhost:27019")
 ```
 
 ### Examples
