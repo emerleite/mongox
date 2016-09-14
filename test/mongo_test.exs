@@ -15,8 +15,8 @@ defmodule Mongo.Test do
   end
 
   setup_all do
-    assert {:ok, _} = Pool.start_link(database: "mongodb_test")
-    assert {:ok, _} = LoggingPool.start_link(database: "mongodb_test")
+    assert {:ok, _} = Pool.start_link(database: "mongodb_test", hostname: "localhost:27017")
+    assert {:ok, _} = LoggingPool.start_link(database: "mongodb_test", hostname: "localhost:27017")
     :ok
   end
 
