@@ -1,13 +1,13 @@
-defmodule Mongodb.Mixfile do
+defmodule Mongox.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :mongodb,
-     version: "0.1.1",
+    [app: :mongox,
+     version: "0.1.3",
      elixir: "~> 1.0",
      deps: deps,
-     name: "Mongodb",
-     source_url: "https://github.com/ericmj/mongodb",
+     name: "MongoX",
+     source_url: "https://github.com/emerleite/mongox",
      docs: fn ->
        {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
        [source_ref: ref, main: "README", readme: "README.md"]
@@ -35,8 +35,8 @@ defmodule Mongodb.Mixfile do
   end
 
   defp package do
-    [maintainers: ["Eric Meadows-Jönsson"],
+    [maintainers: ["Emerson Macedo"],
      licenses: ["Apache 2.0"],
-     links: %{"Github" => "https://github.com/ericmj/mongodb"}]
+     links: %{"Github" => "https://github.com/emerleite/mongox"}]
   end
 end

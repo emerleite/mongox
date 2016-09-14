@@ -1,11 +1,15 @@
-Mongodb
+MongoX
 =======
 
-[![Build Status](https://travis-ci.org/ericmj/mongodb.svg?branch=master)](https://travis-ci.org/ericmj/mongodb)
-[![Inline docs](http://inch-ci.org/github/ericmj/mongodb.svg)](http://inch-ci.org/github/ericmj/mongodb)
+[![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=master)](https://travis-ci.org/emerleite/mongox)
+[![Inline docs](http://inch-ci.org/github/emerleite/mongox.svg)](http://inch-ci.org/github/emerleite/mongox)
+
+
+This is a fork of [https://github.com/ericmj/mongodb](https://github.com/ericmj/mongodb) with full replica set support. We're current using it in production environment, so we need to evolve it regardless of the original project.
 
 ## Features
 
+  * Full Replica Set Support
   * Supports MongoDB versions 2.4, 2.6, 3.0, 3.2
   * Connection pooling
   * Streaming cursors
@@ -92,8 +96,6 @@ Mongo.delete_many(MongoPool, "test-collection", %{"field" => 10})
 ```
 
 ## License
-
-Copyright 2015 Eric Meadows-Jönsson
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
