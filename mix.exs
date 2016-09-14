@@ -8,10 +8,6 @@ defmodule Mongox.Mixfile do
      deps: deps,
      name: "MongoX",
      source_url: "https://github.com/emerleite/mongox",
-     docs: fn ->
-       {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
-       [source_ref: ref, main: "README", readme: "README.md"]
-     end,
      description: description,
      package: package]
   end
@@ -25,9 +21,7 @@ defmodule Mongox.Mixfile do
   defp deps do
     [{:connection, "~> 1.0"},
      {:poolboy,    "~> 1.5", optional: true},
-     {:ex_doc,     ">= 0.0.0", only: :docs},
-     {:earmark,    ">= 0.0.0", only: :docs},
-     {:inch_ex,    ">= 0.0.0", only: :docs}]
+     {:ex_doc, github: "elixir-lang/ex_doc"}]
   end
 
   defp description do
