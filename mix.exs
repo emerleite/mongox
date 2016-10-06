@@ -9,6 +9,7 @@ defmodule Mongox.Mixfile do
      name: "MongoX",
      source_url: "https://github.com/emerleite/mongox",
      description: description,
+     test_coverage: [tool: ExCoveralls],
      package: package]
   end
 
@@ -21,6 +22,7 @@ defmodule Mongox.Mixfile do
   defp deps do
     [{:connection, "~> 1.0"},
      {:poolboy,    "~> 1.5", optional: true},
+     {:excoveralls, "~> 0.5", only: :test},
      {:ex_doc, github: "elixir-lang/ex_doc"}]
   end
 
