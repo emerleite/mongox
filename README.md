@@ -2,6 +2,7 @@ MongoX
 =======
 
 [![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=master)](https://travis-ci.org/emerleite/mongox)
+[![Coveralls Coverage](https://img.shields.io/coveralls/emerleite/mongox.svg)](https://coveralls.io/github/emerleite/mongox)
 [![Inline docs](http://inch-ci.org/github/emerleite/mongox.svg)](http://inch-ci.org/github/emerleite/mongox)
 
 
