@@ -409,4 +409,17 @@ defmodule Mongo.Test do
     assert %Mongo.Cursor{coll: "coll", opts: [no_cursor_timeout: true, skip: 10]} =
            Mongo.find(Pool, "coll", %{}, skip: 10, cursor_timeout: false)
   end
+
+
+  # If the computer is fast this test won't work
+  # we need a way to mock the GenServer call
+  #test "timeout find" do
+  #  coll = unique_name
+
+  #  1..1000 |> Enum.each(fn(num) ->
+  #    assert {:ok, _} = Mongo.insert_one(Pool, coll, %{foo: num})
+  #  end)
+
+  #  Mongo.find(Pool, coll, %{}, [timeout: 1]) |> Enum.to_list
+  #end
 end
