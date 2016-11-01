@@ -568,7 +568,7 @@ defmodule Mongo.Connection do
   end
 
   defp send_to_noreply({:ok, s}),
-    do: {:noreply, s}
+    do: {:noreply, s, get_timeout(s)}
   defp send_to_noreply({:error, reason, s}),
     do: {:disconnect, {:error, reason}, s}
 
