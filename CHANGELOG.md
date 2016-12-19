@@ -1,5 +1,3 @@
-## 0.1.3 (2016-09-13)
+## 0.2.0 (2016-12-19)
 
-  * Full Replica Set Support with multi hostname
-  * Fork from https://github.com/ericmj/mongodb
-  * Initial release
+  * Add customizable timeout for find and find_one methods
