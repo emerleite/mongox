@@ -23,7 +23,7 @@ defmodule Mongox.Mixfile do
     [{:connection, "~> 1.0"},
      {:poolboy,    "~> 1.5", optional: true},
      {:excoveralls, "~> 0.5", only: :test},
-     {:ex_doc, github: "elixir-lang/ex_doc"}]
+     {:ex_doc, github: "elixir-lang/ex_doc", only: :dev}]
   end
 
   defp description do

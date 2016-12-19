@@ -14,4 +14,4 @@
   "mock": {:hex, :mock, "0.2.0", "5991877be6bb514b647dbd6f4869bc12bd7f2829df16e86c98d6108f966d34d7", [:mix], [{:meck, "~> 0.8.2", [hex: :meck, optional: false]}]},
   "poison": {:hex, :poison, "1.5.0", "f2f4f460623a6f154683abae34352525e1d918380267cdbd949a07ba57503248", [:mix], []},
   "poolboy": {:hex, :poolboy, "1.5.1", "6b46163901cfd0a1b43d692657ed9d7e599853b3b21b95ae5ae0a777cf9b6ca8", [:rebar], []},
-  "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.0", "edee20847c42e379bf91261db474ffbe373f8acb56e9079acb6038d4e0bf414f", [:rebar, :make], []}}
+  "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.0", "edee20847c42e379bf91261db474ffbe373f8acb56e9079acb6038d4e0bf414f", [:make, :rebar], []}}
