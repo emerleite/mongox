@@ -56,7 +56,7 @@ defmodule Mongo.Connection do
 
   @doc false
   def find(conn, coll, query, select, opts \\ []) do
-    GenServer.call(conn, {:find, coll, query, select, opts})
+    GenServer.call(conn, {:find, coll, query, select, opts}, get_timeout(opts))
   end
 
   @doc false
@@ -69,9 +69,12 @@ defmodule Mongo.Connection do
     GenServer.call(conn, {:kill_cursors, List.wrap(cursor_ids)})
   end
 
-  @doc false
+  @doc """
+  Executes a find query you can pass opts[:timeout]
+  when it's not set it will default to 5000 milliseconds
+  """
   def find_one(conn, coll, query, select, opts \\ []) do
-    GenServer.call(conn, {:find_one, coll, query, select, opts})
+    GenServer.call(conn, {:find_one, coll, query, select, opts}, get_timeout(opts))
   end
 
   @doc false
@@ -96,6 +99,10 @@ defmodule Mongo.Connection do
   @doc false
   def wire_version(conn) do
     GenServer.call(conn, :wire_version)
+  end
+
+  defp get_timeout(opts) do
+    opts[:timeout] || 5000
   end
 
   defp assign_ids(doc) when is_map(doc) do
@@ -561,7 +568,7 @@ defmodule Mongo.Connection do
   end
 
   defp send_to_noreply({:ok, s}),
-    do: {:noreply, s}
+    do: {:noreply, s, get_timeout(s)}
   defp send_to_noreply({:error, reason, s}),
     do: {:disconnect, {:error, reason}, s}
 
