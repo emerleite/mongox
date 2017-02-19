@@ -7,7 +7,28 @@ defmodule BSON.Decoder do
     map
   end
 
-  defp type(@type_float, <<float::float64, rest::binary>>) do
+  def documents(binary),
+    do: documents(binary, [])
+  def documents("", acc),
+    do: Enum.reverse(acc)
+  def documents(binary, acc) do
+    {doc, rest} = document(binary)
+    documents(rest, [doc|acc])
+  end
+
+  defp type(@type_float, <<0, 0, 0, 0, 0, 0, 240::little-integer-size(8), 127::little-integer-size(8), rest::binary>>) do
+    {:inf, rest}
+  end
+
+  defp type(@type_float, <<0, 0, 0, 0, 0, 0, 240::little-integer-size(8), 255::little-integer-size(8), rest::binary>>) do
+    {:"-inf", rest}
+  end
+
+  defp type(@type_float, <<0, 0, 0, 0, 0, 0, 248::little-integer-size(8), 127::little-integer-size(8), rest::binary>>) do
+    {:NaN, rest}
+  end
+
+  defp type(@type_float, <<float::little-float64, rest::binary>>) do
     {float, rest}
   end
 
