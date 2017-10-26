@@ -27,7 +27,7 @@ defmodule BSON.Decoder do
   defp type(@type_float, <<0, 0, 0, 0, 0, 0, 248::little-integer-size(8), 127::little-integer-size(8), rest::binary>>) do
     {:NaN, rest}
   end
-  
+
   defp type(@type_float, <<1, 0, 0, 0, 0, 0, 240::little-integer-size(8), 127::little-integer-size(8), rest::binary>>) do
     {:NaN, rest}
   end
@@ -53,6 +53,10 @@ defmodule BSON.Decoder do
   defp type(@type_binary, <<size::int32, subtype, binary::binary(size), rest::binary>>) do
     subtype = subtype(subtype)
     {%BSON.Binary{binary: binary, subtype: subtype}, rest}
+  end
+
+  defp type(@type_undefined, rest) do
+    {nil, rest}
   end
 
   defp type(@type_objectid, <<binary::binary(12), rest::binary>>) do
