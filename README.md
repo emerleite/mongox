@@ -1,12 +1,15 @@
-MongoX
+MongoX - DEPRECATED
 =======
 
 [![Build Status](https://travis-ci.org/emerleite/mongox.svg?branch=master)](https://travis-ci.org/emerleite/mongox)
 [![Coveralls Coverage](https://img.shields.io/coveralls/emerleite/mongox.svg)](https://coveralls.io/github/emerleite/mongox)
 [![Inline docs](http://inch-ci.org/github/emerleite/mongox.svg)](http://inch-ci.org/github/emerleite/mongox)
 
+## Deprecation Notice
 
-This is a fork of [https://github.com/ericmj/mongodb](https://github.com/ericmj/mongodb) with full replica set support. We're current using it in production environment, so we need to evolve it regardless of the original project.
+**TLDR;** Please use [https://github.com/ankhers/mongodb](https://github.com/ankhers/mongodb).
+
+This is an unmaintained fork of [ankhers/mongodb](https://github.com/ankhers/mongodb) which was made to support replica sets at a time when the original repo did not. [ankhers/mongodb](https://github.com/ankhers/mongodb) now offers full replica set support and is being actively maintained.
 
 ## Features
 
